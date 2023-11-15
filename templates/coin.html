@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Coin Details
+{% endblock %}
+
+{% block main %}
+    <h1>Coin Details</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Price</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ coin.current_price }}</td>
+                <td>{{ coin.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+

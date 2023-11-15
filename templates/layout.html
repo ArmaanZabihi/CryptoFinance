@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Your Project Name{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light border">
+        {% if session.user_id %}
+        <!-- Show these links if the user is logged in -->
+        <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
+        <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+        <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+        <li class="nav-item"><a class="nav-link" href="/add_cash">Add Cash</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+    {% else %}
+        <!-- Show these links if the user is not logged in -->
+        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+    {% endif %}
+</ul>
+    </nav>
+    
+    {% for message in get_flashed_messages(category_filter=["info", "warning", "error"]) %}
+        <div class="alert alert-{{ message.category }} text-center" role="alert">
+            {{ message.message }}
+        </div>
+    {% endfor %}
+
+    <main class="container-fluid py-5">
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer class="text-center text-muted">
+        Data provided by <a href="https://www.coingecko.com/">Coin Gecko</a>
+    </footer>
+</body>
+</html>

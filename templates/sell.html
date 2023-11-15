@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+<h1>Sell Bitcoin</h1>
+<form action="/sell" method="post">
+    <div class="mb-3">
+        <label for="shares" class="form-label">Amount of Bitcoin to Sell</label>
+        <input autocomplete="off" class="form-control" id="shares" name="shares" placeholder="Enter amount in BTC" type="text" required pattern="^[0-9]*[.,]?[0-9]+$" title="Enter a valid number">
+    </div>
+    <div class="mb-3">
+        <p>Current Price per Bitcoin: <strong>$<span id="bitcoin-price">{{ bitcoin_price }}</span></strong></p>
+        <p>Total Shares: <strong><span id="total-shares">{{ total_shares }}</span> BTC</strong></p>
+    </div>
+    <button class="btn btn-primary" type="submit">Sell</button>
+</form>
+{% endblock %}
+

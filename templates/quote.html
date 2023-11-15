@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+<h1>Quote</h1>
+<form action="/quote" method="post">
+    <div class="mb-3">
+        <label for="symbol" class="form-label">Cryptocurrency Symbol</label>
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" placeholder="e.g., btc" type="text">
+        <div id="symbolHelp" class="form-text">Enter the symbol of the cryptocurrency you want to get a quote for.</div>
+    </div>
+    <button class="btn btn-primary" type="submit">Quote</button>
+</form>
+{% endblock %}

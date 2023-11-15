@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<h1>Transaction History</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Symbol</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ transaction.symbol }}</td>
+            <td>{{ transaction.shares }}</td>
+            <td>{{ transaction.price }}</td>
+            <td>{{ transaction.shares * transaction.price }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No transactions found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

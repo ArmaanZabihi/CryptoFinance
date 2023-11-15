@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+<h1>Buy Bitcoin</h1>
+<form action="/buy" method="post">
+    <!-- Other form fields remain the same -->
+
+    <div class="mb-3">
+        <label for="cash" class="form-label">Amount of Cash to Spend</label>
+        <input autocomplete="off" class="form-control" id="cash" name="cash" placeholder="Enter amount in USD" type="text" required pattern="^[0-9]*[.,]?[0-9]+$" title="Enter a valid number">
+    </div>
+
+    <div class="mb-3">
+        <!-- Other information fields remain the same -->
+    </div>
+
+    <button class="btn btn-primary" type="submit">Buy</button>
+</form>
+
+<script>
+    function calculateMaxBitcoin() {
+        var price = parseFloat(document.getElementById('bitcoin-price').textContent);
+        var cashInput = document.getElementById('cash');
+        cashInput.addEventListener('input', function() {
+            var cash = parseFloat(cashInput.value);
+            var maxBitcoin = (cash / price).toFixed(8);
+            document.getElementById('max-bitcoin').textContent = maxBitcoin;
+        });
+    }
+    window.onload = calculateMaxBitcoin;
+</script>
+{% endblock %}

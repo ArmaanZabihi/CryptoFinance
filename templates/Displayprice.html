@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Display Price
+{% endblock %}
+
+{% block main %}
+    <form method="post">
+        <div>
+            <label for="cryptoFrom">Select the cryptocurrency:</label>
+            <select id="cryptoFrom" name="cryptoFrom" onchange="fetchCryptoPrice(this.value)">
+                {% for crypto in crypto_list %}
+                    <option value="{{ crypto.id }}">{{ crypto.name }} ({{ crypto.symbol }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div id="cryptoPrice">
+            <!-- Div to display the current price -->
+        </div>
+
+        <div>
+            <label for="cryptoTo">Select the second cryptocurrency:</label>
+            <select id="cryptoTo" name="cryptoTo">
+                {% for crypto in crypto_list %}
+                    <option value="{{ crypto.id }}">{{ crypto.name }} ({{ crypto.symbol }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="amountInput">Enter the amount:</label>
+            <input type="text" id="amountInput" name="amountInput">
+        </div>
+
+        <div>
+            <button type="submit">Calculate</button>
+        </div>
+    </form>
+
+    <script>
+        function fetchCryptoPrice(cryptoId) {
+            // Make an API request to get the live price for the selected cryptocurrency
+            fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd`)
+                .then(response => response.json())
+                .then(data => {
+                    const price = data[cryptoId].usd;
+                    document.getElementById("cryptoPrice").textContent = `Current Price: $${price}`;
+                })
+                .catch(error => {
+                    console.error("Error fetching crypto price:", error);
+                });
+        }
+    </script>
+{% endblock %}
